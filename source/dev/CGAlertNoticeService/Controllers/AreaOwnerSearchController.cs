@@ -1,18 +1,27 @@
+using CGAlertNoticeService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CGAlertNoticeService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AreaOwnerSearvhController : ControllerBase
+    public class AreaOwnerSearchController : ControllerBase
     {
-        private readonly ILogger<AreaOwnerSearvhController> _logger;
+        private readonly ILogger<AreaOwnerSearchController> _logger;
 
-        public AreaOwnerSearvhController(ILogger<AreaOwnerSearvhController> logger)
+        public AreaOwnerSearchController(ILogger<AreaOwnerSearchController> logger)
         {
             _logger = logger;
         }
         
+        [HttpGet]
+        public Task<ActionResult<IEnumerable<AreaOwnerInfo>>> SerachOwnerAsync([FromBody] PackageInfo packageInfo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
