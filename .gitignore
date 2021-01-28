@@ -1,4 +1,5 @@
 .vscode/
 source/dev/CGAlertNoticeService/bin/
+source/dev/CGAlertNoticeService/obj/
 source/test/CGAlertNoticeService.Tests/bin/
 source/test/CGAlertNoticeService.Tests/obj/
