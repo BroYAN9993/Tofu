@@ -11,16 +11,14 @@ namespace CGAlertNoticeService.Controllers
     [Route("[controller]")]
     public class AreaOwnerSearchController : ControllerBase
     {
-        private readonly ILogger<AreaOwnerSearchController> _logger;
-
-        public AreaOwnerSearchController(ILogger<AreaOwnerSearchController> logger)
+        public AreaOwnerSearchController()
         {
-            _logger = logger;
         }
         
         [HttpGet]
-        public Task<ActionResult<IEnumerable<AreaOwnerInfo>>> SerachOwnerAsync([FromBody] PackageInfo packageInfo)
+        public Task<ActionResult<IEnumerable<AreaOwnerInfo>>> SearchOwnerAsync([FromBody] PackageInfo packageInfo)
         {
+            if (packageInfo is null) throw new ArgumentNullException();
             throw new NotImplementedException();
         }
     }

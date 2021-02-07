@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 
 namespace CGAlertNoticeService.Tests.Controllers
 {
@@ -17,10 +16,14 @@ namespace CGAlertNoticeService.Tests.Controllers
         [SetUp]
         public void Setup()
         {
-            var logger = new LoggerFactory().CreateLogger<AreaOwnerSearchController>();
-            _areaOwnerSearchController = new AreaOwnerSearchController(logger);                
+            _areaOwnerSearchController = new AreaOwnerSearchController();                
         }
 
-        public void Is
+        [Test]
+        public void IsThrowArgumentNull_SearchOwnerAsync()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(
+                async () => await _areaOwnerSearchController.SearchOwnerAsync(null));
+        }
     }
 }
