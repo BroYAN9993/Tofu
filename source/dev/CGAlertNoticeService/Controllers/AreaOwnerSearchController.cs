@@ -1,3 +1,4 @@
+using CGAlertNoticeService.Interfaces;
 using CGAlertNoticeService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,15 +12,18 @@ namespace CGAlertNoticeService.Controllers
     [Route("[controller]")]
     public class AreaOwnerSearchController : ControllerBase
     {
-        public AreaOwnerSearchController()
+        private IEntityService EntityService { get; set; }
+        public AreaOwnerSearchController(IEntityService entityService)
         {
+            EntityService = entityService;
         }
-        
+
         [HttpGet]
-        public Task<ActionResult<IEnumerable<AreaOwnerInfo>>> SearchOwnerAsync([FromBody] PackageInfo packageInfo)
+        public async Task<ActionResult<IEnumerable<AreaOwnerInfo>>> SearchOwnerAsync([FromBody] PackageInfo packageInfo)
         {
             if (packageInfo is null) throw new ArgumentNullException();
-            throw new NotImplementedException();
+            var OwnerInfos = await EntityService.GetAreaOwnerInfosByPackageInfoAsync(packageInfo).ConfigureAwait(false);
+            return Ok(OwnerInfos);
         }
     }
 }

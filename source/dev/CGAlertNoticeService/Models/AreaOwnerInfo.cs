@@ -7,5 +7,6 @@
         public string OwnerName { get; set; }
         public string Path { get; set; }
         public string Email { get; set; }
+        public CGAlertStatus Status { get; set; }
     }
 }

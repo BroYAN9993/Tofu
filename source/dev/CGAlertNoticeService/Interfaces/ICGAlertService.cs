@@ -7,6 +7,6 @@ namespace CGAlertNoticeService.Interfaces
     public interface ICGAlertService
     {
         public Task<CGAlertInfo> GetCGAlertInfoByPackageInfoAsync(PackageInfo packageInfo);
-        public Task<CGAlertInfo> GetCGAlertInfoByAlertId(string alertId);
+        public Task<CGAlertInfo> GetCGAlertInfoByAlertIdAsync(string alertId);
     }
 }
