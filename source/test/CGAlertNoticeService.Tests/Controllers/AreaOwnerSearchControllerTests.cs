@@ -59,7 +59,7 @@ namespace CGAlertNoticeService.Tests.Controllers
             };
             var result = await _areaOwnerSearchController.SearchOwnerAsync(inputPackageInfo).ConfigureAwait(false);
             Assert.IsNotNull(result);
-            Assert.IsInstanceOf<ActionResult<ICollection<AreaOwnerInfo>>>(result);
+            Assert.IsInstanceOf<ActionResult<IEnumerable<AreaOwnerInfo>>>(result);
         }
     }
 }

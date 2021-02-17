@@ -6,3 +6,5 @@ source/test/CGAlertNoticeService.Tests/bin/
 source/test/CGAlertNoticeService.Tests/obj/
 .fake
 .ionide
+/source/dev/DatabaseService/bin
+/source/dev/DatabaseService/obj

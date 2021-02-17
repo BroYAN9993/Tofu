@@ -6,6 +6,6 @@ namespace CGAlertNoticeService.Interfaces
 {
     public interface IEntityService
     {
-        public Task<ICollection<AreaOwnerInfo>> GetAreaOwnerInfosByPackageInfoAsync(PackageInfo packageInfo);
+        public Task<IEnumerable<AreaOwnerInfo>> GetAreaOwnerInfosByPackageInfoAsync(PackageInfo packageInfo);
     }
 }
