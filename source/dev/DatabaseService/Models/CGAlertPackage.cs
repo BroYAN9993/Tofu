@@ -6,8 +6,8 @@ namespace DatabaseService.Models
 {
     public class CGAlertPackage
     {
-        public Guid CGAlertId { get; set; }
-        public Guid PackageId { get; set; }
+        public int CGAlertId { get; set; }
+        public int PackageId { get; set; }
 
         public CGAlert CGAlert { get; set; }
         public Package Package { get; set; }
@@ -23,9 +23,11 @@ namespace DatabaseService.Models
             builder.Property(b => b.PackageId)
                 .IsRequired();
             builder.HasOne(b => b.CGAlert)
-                .WithMany(c => c.CGAlertPackages);
+                .WithMany(c => c.CGAlertPackages)
+                .HasForeignKey(b => b.CGAlertId);
             builder.HasOne(b => b.Package)
-                .WithMany(p => p.CGAlertPackages);
+                .WithMany(p => p.CGAlertPackages)
+                .HasForeignKey(b => b.PackageId);
         }
     }
 }

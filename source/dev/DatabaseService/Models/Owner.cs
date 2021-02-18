@@ -7,7 +7,7 @@ namespace DatabaseService.Models
 {
     public class Owner
     {
-        public Guid OwnerId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Alias { get; set; }
         public string Email { get; set; }
@@ -19,7 +19,9 @@ namespace DatabaseService.Models
     {
         public void Configure(EntityTypeBuilder<Owner> builder)
         {
-            builder.HasKey(b => b.OwnerId);
+            builder.HasKey(b => b.Id);
+            builder.Property(b => b.Id)
+                .ValueGeneratedOnAdd();
             builder.Property(b => b.Name)
                 .IsRequired();
             builder.Property(b => b.Alias)

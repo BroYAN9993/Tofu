@@ -7,7 +7,7 @@ namespace DatabaseService.Models
 {
     public class Package
     {
-        public Guid PackageId { get; set; }
+        public int Id { get; set; }
         public string PackageName { get; set; }
         public string Version { get; set; }
         public string PackageSource { get; set; }
@@ -20,8 +20,11 @@ namespace DatabaseService.Models
     {
         public void Configure(EntityTypeBuilder<Package> builder)
         {
-            builder.HasKey(b => b.PackageId);
-            builder.HasKey(b => new { b.PackageName, b.Version });
+            builder.HasKey(b => b.Id);
+            builder.HasIndex(b => new { b.PackageName, b.Version })
+                .IsUnique();
+            builder.Property(b => b.Id)
+                .ValueGeneratedOnAdd();
             builder.Property(b => b.PackageName)
                 .IsRequired();
             builder.Property(b => b.Version)

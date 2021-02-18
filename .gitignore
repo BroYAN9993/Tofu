@@ -8,3 +8,6 @@ source/test/CGAlertNoticeService.Tests/obj/
 .ionide
 /source/dev/DatabaseService/bin
 /source/dev/DatabaseService/obj
+/source/dev/DatabaseService/Migrations
+/source/dev/DatabaseService/CGAlertDataSource.db
+/Tofu.v3.ncrunchsolution.user

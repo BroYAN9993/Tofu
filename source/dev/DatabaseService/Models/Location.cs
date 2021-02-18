@@ -6,9 +6,9 @@ namespace DatabaseService.Models
 {
     public class Location
     {
-        public Guid LocationId { get; set; }
-        public Guid PackageId { get; set; }
-        public Guid OwnerId { get; set; }
+        public int Id { get; set; }
+        public int PackageId { get; set; }
+        public int OwnerId { get; set; }
         public string Path { get; set; }
 
         public Package Package { get; set; }
@@ -19,15 +19,19 @@ namespace DatabaseService.Models
     {
         public void Configure(EntityTypeBuilder<Location> builder)
         {
-            builder.HasKey(b => b.LocationId);
+            builder.HasKey(b => b.Id);            
+            builder.Property(b => b.Id)
+                .ValueGeneratedOnAdd(); 
             builder.Property(b => b.PackageId)
                 .IsRequired();
             builder.Property(b => b.Path)
                 .IsRequired();
             builder.HasOne(b => b.Package)
-                .WithMany(p => p.Locations);
+                .WithMany(p => p.Locations)
+                .HasForeignKey(b => b.PackageId);
             builder.HasOne(b => b.Owner)
-                .WithMany(o => o.Locations);
+                .WithMany(o => o.Locations)
+                .HasForeignKey(b => b.OwnerId);
         }
     }
 }
