@@ -13,6 +13,7 @@ namespace DatabaseService.Models
         public string Email { get; set; }
 
         public IEnumerable<Location> Locations { get; set; }
+        public IEnumerable<WorkItem> WorkItems { get; set; }
     }
 
     public class OwnerEntitiyTypeConfiguration : IEntityTypeConfiguration<Owner>

@@ -10,6 +10,7 @@ namespace DatabaseService.Contexts
         public DbSet<Location> Locations { get; set; } 
         public DbSet<Owner> Owners { get; set; }
         public DbSet<Package> Packages { get; set; }
+        public DbSet<WorkItem> WorkItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("Data Source=CGAlertDataSource.db");
@@ -21,6 +22,7 @@ namespace DatabaseService.Contexts
             modelBuilder.ApplyConfiguration(new LocationEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OwnerEntitiyTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PackageEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new WorkItemPackageEntityTypeConfiguration());
         }
     }
 }

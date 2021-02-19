@@ -11,3 +11,4 @@ source/test/CGAlertNoticeService.Tests/obj/
 /source/dev/DatabaseService/Migrations
 /source/dev/DatabaseService/CGAlertDataSource.db
 /Tofu.v3.ncrunchsolution.user
+/source/dev/DatabaseService/DatabaseService.userosscache

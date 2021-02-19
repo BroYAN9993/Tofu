@@ -12,6 +12,7 @@ namespace DatabaseService.Models
         public string AlertName { get; set; }
 
         public IEnumerable<CGAlertPackage> CGAlertPackages { get; set; }
+        public IEnumerable<WorkItem> WorkItems { get; set; }
     }
 
     public class CGAlertEntityTypeConfiguration : IEntityTypeConfiguration<CGAlert>
