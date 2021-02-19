@@ -13,7 +13,7 @@ namespace DatabaseService.Models
         public string PackageSource { get; set; }
 
         public IEnumerable<Location> Locations { get; set; }
-        public IEnumerable<CGAlertPackage> CGAlertPackages { get; set; }
+        public IEnumerable<CGAlertPackage>CGAlertPackages { get; internal set; }
     }
 
     public class PackageEntityTypeConfiguration : IEntityTypeConfiguration<Package>

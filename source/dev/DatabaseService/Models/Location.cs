@@ -10,6 +10,7 @@ namespace DatabaseService.Models
         public int PackageId { get; set; }
         public int OwnerId { get; set; }
         public string Path { get; set; }
+        public int RowNumber { get; set; }
 
         public Package Package { get; set; }
         public Owner Owner { get; set; }

@@ -11,12 +11,13 @@ namespace DatabaseService.Models
     {
         public int Id { get; set; }
         public DateTime CreateTime { get; set; }
-        public int OwnerId { get; set; }
+        public int PackageId { get; set; }
+        public int LocationId { get; set; }
         public int CGAlertId { get; set; }
         public string Status { get; set; }
 
-        public Owner Owner { get; set; }
-        public CGAlert CGAlert { get; set; }
+        public CGAlertPackage CGAlertPackage { get; set; }
+        public Location Location { get; set; } 
     }
 
     public class WorkItemPackageEntityTypeConfiguration : IEntityTypeConfiguration<WorkItem>
@@ -28,10 +29,7 @@ namespace DatabaseService.Models
                 .IsRequired();
             builder.Property(b => b.Status)
                 .IsRequired();
-            builder.HasOne(b => b.Owner)
-                .WithMany(o => o.WorkItems)
-                .HasForeignKey(b => b.OwnerId);
-            builder.HasOne(b => b.CGAlert)
+            builder.HasOne(b => b.CGAlertPackage)
                 .WithMany(c => c.WorkItems)
                 .HasForeignKey(c => c.CGAlertId);
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using System.Collections.Generic;
 
 namespace DatabaseService.Models
 {
@@ -11,6 +12,7 @@ namespace DatabaseService.Models
 
         public CGAlert CGAlert { get; set; }
         public Package Package { get; set; }
+        public IEnumerable<WorkItem> WorkItems { get; set; }
     }
 
     public class CGAlertPackageEntityTypeConfiguration : IEntityTypeConfiguration<CGAlertPackage>
