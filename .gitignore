@@ -14,3 +14,9 @@ source/test/CGAlertNoticeService.Tests/obj/
 /source/dev/DatabaseService/DatabaseService.userosscache
 /source/dev/SystemAPI/obj
 /source/dev/SystemAPI/SystemAPI.userosscache
+/FileService/obj
+/FileService/FileService.userosscache
+/RepoService/obj
+/RepoService/RepoService.userosscache
+/SystemAPI.Tests/obj
+*.userosscache
