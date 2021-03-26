@@ -15,13 +15,13 @@ namespace CGAlertNoticeService.Tests.Controllers
     [TestFixture] 
     public class AreaOwnerSearchControllerTests
     {
-        private AreaOwnerSearchController _areaOwnerSearchController;
+        private AreaOwnerSearchController areaOwnerSearchController;
 
         [SetUp]
         public void Setup()
         {
             var mockEntityService = new Mock<IEntityService>();
-            _areaOwnerSearchController = new AreaOwnerSearchController(mockEntityService.Object);
+            areaOwnerSearchController = new AreaOwnerSearchController(mockEntityService.Object);
             var packageInfo = new PackageInfo
             {
                 PackageName = "Test",
@@ -45,7 +45,7 @@ namespace CGAlertNoticeService.Tests.Controllers
         public void IsThrowArgumentNull_SearchOwnerAsync()
         {
             Assert.ThrowsAsync<ArgumentNullException>(
-                async () => await _areaOwnerSearchController.SearchOwnerAsync(null));
+                async () => await areaOwnerSearchController.SearchOwnerAsync(null));
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace CGAlertNoticeService.Tests.Controllers
                 PackageRepoName = "Tofu.Test",
                 PackageSource = PackageSource.Nuget
             };
-            var result = await _areaOwnerSearchController.SearchOwnerAsync(inputPackageInfo).ConfigureAwait(false);
+            var result = await areaOwnerSearchController.SearchOwnerAsync(inputPackageInfo).ConfigureAwait(false);
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<ActionResult<IEnumerable<AreaOwnerInfo>>>(result);
         }

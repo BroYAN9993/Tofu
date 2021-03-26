@@ -20,3 +20,5 @@ source/test/CGAlertNoticeService.Tests/obj/
 /RepoService/RepoService.userosscache
 /SystemAPI.Tests/obj
 *.userosscache
+/SystemAPI.Tests/bin
+/source/dev/SystemAPI/bin
