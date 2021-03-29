@@ -7,10 +7,12 @@ using SystemAPI.Models;
 
 namespace SystemAPI.Tests.Services.Fake
 {
-    internal class FakeAlertInfoFetchServiceReturnDefaultValue : IAlertInfoFetchService
+    public class FakeAlertInfoFetchServiceReturnDefaultValue : IAlertInfoFetchService
     {
-        public Task<AlertInfo> GetAlertInfoByIdAsync(int id) => null;
+        public async Task<AlertInfo> GetAlertInfoByIdAsync(int id) => null;
 
-        public Task<IEnumerable<AlertInfo>> GetAlertInfosByRepoAsync(RepoInfo repoInfo) => null;
+        public async Task<AlertInfo> GetAlertInfoByAlertNameAndPackageInfoAsync(string alertName,
+            PackageInfo packageInfo) => null;
+        public async Task<IEnumerable<AlertInfo>> GetAlertInfosByRepoAsync(RepoInfo repoInfo) => null;
     }
 }

@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SystemAPI.Interfaces;
 using SystemAPI.Models;
+using NSubstitute.Core;
 
 namespace SystemAPI.Tests.Services.Fake
 {

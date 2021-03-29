@@ -19,6 +19,15 @@ namespace SystemAPI.Services
 
         public async Task<int> SyncAlertInfoByAlertNameAndPackageInfoAsync(string alertName, PackageInfo packageInfo)
         {
+            if (alertName == null)
+            {
+                throw new ArgumentNullException(nameof(alertName), "empty alert name");
+            }
+            if (packageInfo == null)
+            {
+                throw new ArgumentNullException(nameof(packageInfo), "empty alert name");
+            }
+
             var alertId = await EntityService.GetAlertIdByAlertNameAndPackageInfoAsync(alertName, packageInfo);
             var alertInfo = await AlertInfoFetchService.GetAlertInfoByIdAsync(alertId);
             var id = await EntityService.SaveAlertAsync(alertInfo);
