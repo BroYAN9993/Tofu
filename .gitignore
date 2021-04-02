@@ -22,3 +22,7 @@ source/test/CGAlertNoticeService.Tests/obj/
 *.userosscache
 /SystemAPI.Tests/bin
 /source/dev/SystemAPI/bin
+/source/test/DatabaseService.Tests/bin/Debug/netcoreapp3.1
+/source/test/DatabaseService.Tests/obj
+/source/test/SystemAPI.Tests/bin/Debug/netcoreapp3.1
+/source/test/SystemAPI.Tests/obj

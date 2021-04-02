@@ -10,15 +10,16 @@ namespace SystemAPI.Services
     public class AlertInfoSyncService : IAlertInfoSyncService
     {
         public IEntityService EntityService { get; set; }
-        public IAlertInfoFetchService AlertInfoFetchService { get; set; }
-        public AlertInfoSyncService(IEntityService entityService, IAlertInfoFetchService alertInfoFetchService)
+        public IAlertSourceService AlertSourceService { get; set; }
+        public AlertInfoSyncService(IEntityService entityService, IAlertSourceService alertSourceService)
         {
             EntityService = entityService;
-            AlertInfoFetchService = alertInfoFetchService;
+            AlertSourceService = alertSourceService;
         }
 
         public async Task<int> SyncAlertInfoByAlertNameAndPackageInfoAsync(string alertName, PackageInfo packageInfo)
         {
+            AlertInfo alertInfo;
             if (alertName == null)
             {
                 throw new ArgumentNullException(nameof(alertName), "empty alert name");
@@ -28,8 +29,15 @@ namespace SystemAPI.Services
                 throw new ArgumentNullException(nameof(packageInfo), "empty alert name");
             }
 
-            var alertId = await EntityService.GetAlertIdByAlertNameAndPackageInfoAsync(alertName, packageInfo);
-            var alertInfo = await AlertInfoFetchService.GetAlertInfoByIdAsync(alertId);
+            try
+            {
+                var alertId = await EntityService.GetAlertIdByAlertNameAndPackageInfoAsync(alertName, packageInfo);
+                alertInfo = await AlertSourceService.GetAlertInfoByIdAsync(alertId);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                alertInfo = await AlertSourceService.GetAlertInfoByAlertNameAndPackageInfoAsync(alertName, packageInfo);
+            }
             var id = await EntityService.SaveAlertAsync(alertInfo);
             return id;
         }

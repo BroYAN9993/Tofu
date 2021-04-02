@@ -8,7 +8,9 @@ namespace SystemAPI.Interfaces
 {
     public interface IEntityService
     {
-        public Task<int> GetAlertIdByAlertNameAndPackageInfoAsync(string alertName, PackageInfo packageInfo);
-        public Task<int> SaveAlertAsync(AlertInfo alertInfo);
+        Task<int> GetAlertIdByAlertNameAndPackageInfoAsync(string alertName, PackageInfo packageInfo);
+        Task<int> SaveAlertAsync(AlertInfo alertInfo);
+        Task<AlertInfo> GetAlertInfoByIdAsync(int alertId);
+        Task RecordAlertNoticeEmailsAsync(IEnumerable<AlertNoticeEmail> emails);
     }
 }

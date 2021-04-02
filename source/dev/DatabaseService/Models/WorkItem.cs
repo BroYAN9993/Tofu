@@ -10,6 +10,7 @@ namespace DatabaseService.Models
     public class WorkItem
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public DateTime CreateTime { get; set; }
         public int PackageId { get; set; }
         public int LocationId { get; set; }
@@ -31,7 +32,7 @@ namespace DatabaseService.Models
                 .IsRequired();
             builder.HasOne(b => b.CGAlertPackage)
                 .WithMany(c => c.WorkItems)
-                .HasForeignKey(c => c.CGAlertId);
+                .HasForeignKey(c => new {c.CGAlertId, c.PackageId});
         }
     }
 }

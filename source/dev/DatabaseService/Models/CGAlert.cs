@@ -10,7 +10,9 @@ namespace DatabaseService.Models
     {
         public int Id { get; set; }
         public string AlertName { get; set; }
+        public int RepoId { get; set; }
 
+        public Repo Repo { get; set; }
         public IEnumerable<CGAlertPackage> CGAlertPackages { get; set; }
         public IEnumerable<WorkItem> WorkItems { get; set; }
     }
@@ -22,9 +24,15 @@ namespace DatabaseService.Models
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Id)
                 .ValueGeneratedOnAdd();
-            builder.HasMany(b => b.CGAlertPackages);
             builder.Property(b => b.AlertName)
                 .IsRequired();
+            builder.Property(b => b.RepoId)
+                .IsRequired();
+            builder.HasOne(b => b.Repo)
+                .WithMany(r => r.CGAlerts)
+                .HasForeignKey(b => b.RepoId);
+            builder.HasMany(b => b.CGAlertPackages);
+            builder.HasMany(b => b.WorkItems);
         }
     }
 }

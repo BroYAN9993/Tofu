@@ -15,18 +15,18 @@ namespace SystemAPI.Tests.Services
     [TestFixture]
     public class AlertInfoSyncServiceTests
     {
-        [SetUp]
-        public void Setup()
+        private AlertInfoSyncService CreateAlertInfoSyncService(IEntityService entityService,
+            IAlertSourceService fetchService)
         {
-            
+            return new AlertInfoSyncService(entityService, fetchService);
         }
 
         [Test]
         public void SyncAlertInfoByAlertNameAndPackageInfo_EmptyParameters_ThrowsException()
         {
             var stubEntityService = new FakeEntityServiceReuturnDefaultValue();
-            var stubFetchService = new FakeAlertInfoFetchServiceReturnDefaultValue();
-            var syncService = new AlertInfoSyncService(stubEntityService, stubFetchService);
+            var stubFetchService = new FakeAlertSourceServiceReturnDefaultValue();
+            var syncService = CreateAlertInfoSyncService(stubEntityService, stubFetchService);
             var ex = Assert.CatchAsync<Exception>(async () =>
                 await syncService.SyncAlertInfoByAlertNameAndPackageInfoAsync(null, null));
             StringAssert.Contains("empty alert name", ex.Message);
@@ -39,8 +39,8 @@ namespace SystemAPI.Tests.Services
             var emptyPackageInfo = new PackageInfo();
             var emptyAlertInfo = new AlertInfo();
             var mockEntityService = Substitute.For<IEntityService>();
-            var stubFetchService = new FakeAlertInfoFetchServiceReturnDefaultValue();
-            var syncService = new AlertInfoSyncService(mockEntityService, stubFetchService);
+            var stubFetchService = new FakeAlertSourceServiceReturnDefaultValue();
+            var syncService = CreateAlertInfoSyncService(mockEntityService, stubFetchService);
             _ = await syncService.SyncAlertInfoByAlertNameAndPackageInfoAsync(exampleAlertName, emptyPackageInfo);
             await mockEntityService.Received().GetAlertIdByAlertNameAndPackageInfoAsync(exampleAlertName, emptyPackageInfo);
             await mockEntityService.ReceivedWithAnyArgs().SaveAlertAsync(emptyAlertInfo);
@@ -52,8 +52,8 @@ namespace SystemAPI.Tests.Services
             var exampleAlertName = "ExistAlertName";
             var emptyPackageInfo = new PackageInfo();
             var stubEntityService = new FakeEntityServiceReuturnDefaultValue();
-            var mockFetchService = Substitute.For<IAlertInfoFetchService>();
-            var syncService = new AlertInfoSyncService(stubEntityService, mockFetchService);
+            var mockFetchService = Substitute.For<IAlertSourceService>();
+            var syncService = CreateAlertInfoSyncService(stubEntityService, mockFetchService);
             _ = await syncService.SyncAlertInfoByAlertNameAndPackageInfoAsync(exampleAlertName, emptyPackageInfo);
             await mockFetchService.ReceivedWithAnyArgs().GetAlertInfoByIdAsync(1);
         }
@@ -65,11 +65,27 @@ namespace SystemAPI.Tests.Services
             var emptyPackageInfo = new PackageInfo();
             var emptyAlertInfo = new AlertInfo();
             var mockEntityService = Substitute.For<IEntityService>();
-            var stubFetchService = new FakeAlertInfoFetchServiceReturnDefaultValue();
-            var syncService = new AlertInfoSyncService(mockEntityService, stubFetchService);
+            var stubFetchService = new FakeAlertSourceServiceReturnDefaultValue();
+            var syncService = CreateAlertInfoSyncService(mockEntityService, stubFetchService);
             _ = await syncService.SyncAlertInfoByAlertNameAndPackageInfoAsync(exampleAlertName, emptyPackageInfo);
             await mockEntityService.ReceivedWithAnyArgs().SaveAlertAsync(emptyAlertInfo);
             await mockEntityService.Received().GetAlertIdByAlertNameAndPackageInfoAsync(exampleAlertName, emptyPackageInfo);
+        }
+
+        [Test]
+        public async Task SyncAlertInfoByAlertNameAndPackageInfo_NewAlertName_CallFetchInfoServiceMethods()
+        {
+            var exampleAlertName = "NewAlertName";
+            var emptyPackageInfo = new PackageInfo();
+            var emptyAlertInfo = new AlertInfo();
+            var stubEntityService = Substitute.For<IEntityService>();
+            stubEntityService.When(x => x.GetAlertIdByAlertNameAndPackageInfoAsync(exampleAlertName, emptyPackageInfo))
+                    .Do(context => throw new ArgumentOutOfRangeException());
+            var mockFetchService = Substitute.For<IAlertSourceService>();
+            var syncService = CreateAlertInfoSyncService(stubEntityService, mockFetchService);
+            _ = await syncService.SyncAlertInfoByAlertNameAndPackageInfoAsync(exampleAlertName, emptyPackageInfo);
+            await mockFetchService.ReceivedWithAnyArgs()
+                .GetAlertInfoByAlertNameAndPackageInfoAsync(exampleAlertName, emptyPackageInfo);
         }
     }
 }

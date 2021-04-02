@@ -7,7 +7,7 @@ using SystemAPI.Models;
 
 namespace SystemAPI.Tests.Services.Fake
 {
-    public class FakeAlertInfoFetchServiceReturnDefaultValue : IAlertInfoFetchService
+    public class FakeAlertSourceServiceReturnDefaultValue : IAlertSourceService
     {
         public async Task<AlertInfo> GetAlertInfoByIdAsync(int id) => null;
 
